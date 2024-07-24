@@ -1,6 +1,7 @@
 # bmi_calculator
 
 #About this Project
+
 This Flutter project is a BMI (Body Mass Index) calculator. Users input their age, height, weight, and gender. The app calculates BMI and displays the results in a convenient model bottom sheet.
 Key Features
  * Easy-to-use input fields for age, height, weight, and gender selection.
