@@ -210,7 +210,17 @@ class _AddBmiState extends State<AddBmi> {
                     ],
                   ),
                   SliderTheme(
-                    data: const SliderThemeData(),
+                    data: SliderThemeData(
+                      activeTrackColor: Colors.blue[700],
+                      inactiveTrackColor: Colors.blue[200],
+                      trackShape: RoundedRectSliderTrackShape(),
+                      trackHeight: 15.0,
+                      thumbColor: Colors.blue,
+                      thumbShape: RoundSliderThumbShape(enabledThumbRadius: 0),
+                      overlayColor: Colors.blue.withAlpha(32),
+                      overlayShape:
+                          RoundSliderOverlayShape(overlayRadius: 28.0),
+                    ),
                     child: Slider(
                       value: height,
                       min: 0,

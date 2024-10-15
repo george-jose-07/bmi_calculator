@@ -18,7 +18,8 @@ class BmiResultState extends State<BmiResult> {
     return width > 600
         ? Container(
             decoration: BoxDecoration(
-              color: Colors.blue.withOpacity(0.5),
+              gradient: const LinearGradient(
+                  colors: [Color(0xff83a4d4), Color(0xffb6fbff)]),
               borderRadius: BorderRadius.circular(25),
               border: Border.all(color: Colors.white),
             ),
@@ -188,7 +189,8 @@ class BmiResultState extends State<BmiResult> {
           )
         : Container(
             decoration: BoxDecoration(
-              color: Colors.blue.withOpacity(0.5),
+              gradient: const LinearGradient(
+                  colors: [Color(0xff83a4d4), Color(0xffb6fbff)]),
               borderRadius: BorderRadius.circular(25),
               border: Border.all(color: Colors.white),
             ),
