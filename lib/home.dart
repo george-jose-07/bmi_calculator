@@ -1,25 +1,47 @@
 import 'package:bmi_calculator/bmi_result_page.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 enum Gender { male, female }
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class Home extends StatefulWidget {
+  const Home({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<Home> createState() => _HomeState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeState extends State<Home> {
   final _formKey = GlobalKey<FormState>();
   Gender _selectedSegment = Gender.male;
-
+  List<String> bodyNature = ['UNDERWEIGHT', 'NORMAL', 'OVERWEIGHT', 'OBESE'];
   TextEditingController heightTextController = TextEditingController();
   TextEditingController weightTextController = TextEditingController();
   TextEditingController ageTextController = TextEditingController();
+
+  double bmiCalc(String height, String weight) {
+    double hg = double.parse(height) / 100;
+    double wg = double.parse(weight);
+    return (wg / (hg * hg));
+  }
+
+  int bodyType() {
+    double bmiVal =
+        bmiCalc(heightTextController.text, weightTextController.text);
+    int count;
+    if (bmiVal < 18.5) {
+      count = 0;
+    } else if (bmiVal >= 18.5 && bmiVal < 25) {
+      count = 1;
+    } else if (bmiVal >= 25 && bmiVal < 30) {
+      count = 2;
+    } else {
+      count = 3;
+    }
+    return count;
+  }
 
   @override
   void dispose() {
@@ -39,7 +61,7 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 100, right: 20, left: 20),
+                padding: const EdgeInsets.only(top: 80, right: 20, left: 20),
                 child: Text("BMI CALCULATOR",
                         style: GoogleFonts.bebasNeue(
                           fontSize: 24,
@@ -54,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                     ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
+                padding: const EdgeInsets.only(left: 40, right: 40, top: 30),
                 child: SizedBox(
                   height: 160,
                   width: MediaQuery.of(context).size.width,
@@ -97,9 +119,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     },
-                   // backgroundColor: Colors.transparent,
+                    // backgroundColor: Colors.transparent,
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical:10),
+                        horizontal: 10, vertical: 10),
                     groupValue: _selectedSegment,
                     onValueChanged: (value) {
                       setState(() {
@@ -110,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+                padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
                 child: TextFormField(
                   textAlign: TextAlign.start,
                   controller: heightTextController,
@@ -129,26 +151,27 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-                  child: TextFormField(
-                    textAlign: TextAlign.start,
-                    controller: weightTextController,
-                    obscureText: false,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      labelText: "Enter Your Weight in kilogram",
-                    ),
-                    validator: (val) {
-                      if (val == null || val.isEmpty) {
-                        return 'please enter weight';
-                      } else {
-                        return null;
-                      }
-                    },
-                  )),
+                padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
+                child: TextFormField(
+                  textAlign: TextAlign.start,
+                  controller: weightTextController,
+                  obscureText: false,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: "Enter Your Weight in kilogram",
+                  ),
+                  validator: (val) {
+                    if (val == null || val.isEmpty) {
+                      return 'please enter weight';
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.only(
-                    left: 20, right: 20, top: 20, bottom: 20),
+                    left: 40, right: 40, top: 20, bottom: 20),
                 child: TextFormField(
                   textAlign: TextAlign.start,
                   controller: ageTextController,
@@ -168,25 +191,54 @@ class _HomePageState extends State<HomePage> {
               ),
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                padding: const EdgeInsets.only(left: 40, right: 40, bottom: 20),
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      showModalBottomSheet(
-                        useSafeArea: true,
-                        isScrollControlled: true,
-                        elevation: 100,showDragHandle: true,
+                      showDialog(
                         context: context,
-                        builder: (context) => SizedBox(
-                          height: 400,
+                        builder: (context) => Dialog(
                           child: BmiResult(
-                            height: heightTextController.text,
-                            weight: weightTextController.text,
-                            age: ageTextController.text,
-                            gender: _selectedSegment.name,
+                            bmi: Bmi(
+                              age: ageTextController.text,
+                              height: heightTextController.text,
+                              weight: weightTextController.text,
+                              date: DateTime.now(),
+                              bmiValue: bmiCalc(heightTextController.text,
+                                  weightTextController.text),
+                              gender: _selectedSegment.name,
+                              bodyNature: bodyNature[bodyType()],
+                            ),
                           ),
                         ),
                       );
+                      // showModalBottomSheet(
+                      //   useSafeArea: true,
+                      //   isScrollControlled: true,
+                      //   enableDrag: true,
+                      //   elevation: 100,
+                      //   showDragHandle: true,
+                      //   context: context,
+                      //   builder: (context) => SizedBox(
+                      //     height: 400,
+                      //     child: BmiResult(
+                      //       bmi: Bmi(
+                      //         age: ageTextController.text,
+                      //         height: heightTextController.text,
+                      //         weight: weightTextController.text,
+                      //         date: DateTime.now(),
+                      //         bmiValue: bmiCalc(heightTextController.text,
+                      //             weightTextController.text),
+                      //         gender: _selectedSegment.name,
+                      //         bodyNature: bodyNature[bodyType()],
+                      //       ),
+                      //       // height: heightTextController.text,
+                      //       // weight: weightTextController.text,
+                      //       // age: ageTextController.text,
+                      //       // gender: _selectedSegment.name,
+                      //     ),
+                      //   ),
+                      // );
                     }
                   },
                   child: const Text("ENTER"),
