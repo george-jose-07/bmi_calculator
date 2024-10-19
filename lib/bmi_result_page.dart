@@ -14,14 +14,24 @@ class BmiResult extends StatefulWidget {
 class BmiResultState extends State<BmiResult> {
   @override
   Widget build(BuildContext context) {
+    final isDarkMode =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
     final width = MediaQuery.of(context).size.width;
     return width > 600
         ? Container(
             decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                  colors: [Color(0xff83a4d4), Color(0xffb6fbff)]),
-              borderRadius: BorderRadius.circular(25),
-              border: Border.all(color: Colors.white),
+              // gradient: const LinearGradient(
+              //     colors: [Color(0xff83a4d4), Color(0xffb6fbff)]),
+              image: DecorationImage(
+                  image: AssetImage('assets/images/dark.jpg'),
+                  fit: BoxFit.cover,
+                  invertColors: isDarkMode ? false : true,
+                  opacity: 1),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color:
+                    isDarkMode ? Colors.white : Colors.black.withOpacity(0.7),
+              ),
             ),
             height: 220,
             width: 550,
@@ -82,15 +92,22 @@ class BmiResultState extends State<BmiResult> {
                               height: 55,
                               width: 100,
                               decoration: BoxDecoration(
-                                border: Border.all(color: Colors.white),
+                                border: Border.all(
+                                  color: isDarkMode
+                                      ? Colors.white
+                                      : Colors.black.withOpacity(0.7),
+                                ),
                                 borderRadius: BorderRadius.circular(20),
-                                color: Colors.white.withOpacity(0.1),
+                                gradient: LinearGradient(colors: [
+                                  Color(0xff83a4d4).withOpacity(0.4),
+                                  Color(0xffb6fbff).withOpacity(0.4)
+                                ]),
                               ),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(20),
                                 child: BackdropFilter(
                                   filter:
-                                      ImageFilter.blur(sigmaY: 20, sigmaX: 20),
+                                      ImageFilter.blur(sigmaY: 3, sigmaX: 3),
                                   child: const Center(
                                     child: Text(
                                       'OKAY',
@@ -113,14 +130,21 @@ class BmiResultState extends State<BmiResult> {
                         vertical: 20, horizontal: 20),
                     child: Container(
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white),
+                        border: Border.all(
+                          color: isDarkMode
+                              ? Colors.white
+                              : Colors.black.withOpacity(0.7),
+                        ),
                         borderRadius: BorderRadius.circular(20),
-                        color: Colors.white.withOpacity(0.1),
+                        gradient: LinearGradient(colors: [
+                          Color(0xff83a4d4).withOpacity(0.4),
+                          Color(0xffb6fbff).withOpacity(0.4)
+                        ]),
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaY: 20, sigmaX: 20),
+                          filter: ImageFilter.blur(sigmaY: 3, sigmaX: 3),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -189,10 +213,18 @@ class BmiResultState extends State<BmiResult> {
           )
         : Container(
             decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                  colors: [Color(0xff83a4d4), Color(0xffb6fbff)]),
-              borderRadius: BorderRadius.circular(25),
-              border: Border.all(color: Colors.white),
+              // gradient: const LinearGradient(
+              //     colors: [Color(0xff83a4d4), Color(0xffb6fbff)]),
+              image: DecorationImage(
+                  image: AssetImage('assets/images/dark.jpg'),
+                  fit: BoxFit.cover,
+                  invertColors: isDarkMode ? false : true,
+                  opacity: 1),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color:
+                    isDarkMode ? Colors.white : Colors.black.withOpacity(0.7),
+              ),
             ),
             height: 380,
             child: Column(
@@ -237,14 +269,21 @@ class BmiResultState extends State<BmiResult> {
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   child: Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white),
+                      border: Border.all(
+                        color: isDarkMode
+                            ? Colors.white
+                            : Colors.black.withOpacity(0.7),
+                      ),
                       borderRadius: BorderRadius.circular(20),
-                      color: Colors.white.withOpacity(0.1),
+                      gradient: LinearGradient(colors: [
+                        Color(0xff83a4d4).withOpacity(0.4),
+                        Color(0xffb6fbff).withOpacity(0.4)
+                      ]),
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaY: 20, sigmaX: 20),
+                        filter: ImageFilter.blur(sigmaY: 3, sigmaX: 3),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -316,14 +355,21 @@ class BmiResultState extends State<BmiResult> {
                           height: 55,
                           width: 110,
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.white),
+                            border: Border.all(
+                              color: isDarkMode
+                                  ? Colors.white
+                                  : Colors.black.withOpacity(0.7),
+                            ),
                             borderRadius: BorderRadius.circular(20),
-                            color: Colors.white.withOpacity(0.1),
+                            gradient: LinearGradient(colors: [
+                              Color(0xff83a4d4).withOpacity(0.4),
+                              Color(0xffb6fbff).withOpacity(0.4)
+                            ]),
                           ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(20),
                             child: BackdropFilter(
-                              filter: ImageFilter.blur(sigmaY: 20, sigmaX: 20),
+                              filter: ImageFilter.blur(sigmaY: 3, sigmaX: 3),
                               child: const Center(
                                 child: Text(
                                   'OKAY',

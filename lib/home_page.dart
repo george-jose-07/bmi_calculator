@@ -67,6 +67,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
+
     Widget mainContent = _bmiHistory.isEmpty
         ? const Center(
             child: Text(
@@ -76,53 +79,59 @@ class _HomePageState extends State<HomePage> {
         : HistoryPage(history: _bmiHistory, onRemoveBmi: _removeExpense);
 
     return Container(
-        //color: Colors.red,
-        child: Scaffold(
-      appBar: AppBar(
-        title: Center(
-          child: const Text(
-            "BMI CALCULATOR",
-            style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-            ),
-            textScaleFactor: 2,
-          )
-              .animate(
-                onPlay: (controller) => controller.repeat(),
-              )
-              .shimmer(
-                duration: 3000.ms,
-                delay: 1000.ms,
-                color: Color(0xffb6fbff),
-              ),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/images/dark.jpg'),
+              fit: BoxFit.cover,
+              invertColors: isDarkMode ? false : true,
+              opacity: 1),
         ),
-      ),
-      backgroundColor: Colors.transparent,
-      body: _selectedIndex == 0
-          ? AddBmi(
-              onAddBmi: _addBmi,
-            )
-          : mainContent,
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-              icon: const Icon(Icons.home_outlined),
-              label: 'HOME',
-              backgroundColor: Colors.blue.withOpacity(0.5)),
-          BottomNavigationBarItem(
-              icon: const Icon(Icons.history),
-              label: 'HISTORY',
-              backgroundColor: Colors.blue.withOpacity(0.5))
-        ],
-        currentIndex: _selectedIndex,
-        onTap: (value) {
-          setState(() {
-            _selectedIndex = value;
-          });
-        },
-        elevation: 80,
-      ),
-    ));
+        child: Scaffold(
+          appBar: AppBar(
+            title: Center(
+              child: const Text(
+                "BMI CALCULATOR",
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+                textScaleFactor: 2,
+              )
+                  .animate(
+                    onPlay: (controller) => controller.repeat(),
+                  )
+                  .shimmer(
+                    duration: 3000.ms,
+                    delay: 1000.ms,
+                    color: Color(0xffb6fbff),
+                  ),
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+          body: _selectedIndex == 0
+              ? AddBmi(
+                  onAddBmi: _addBmi,
+                )
+              : mainContent,
+          bottomNavigationBar: BottomNavigationBar(
+            items: [
+              BottomNavigationBarItem(
+                  icon: const Icon(Icons.home_outlined),
+                  label: 'HOME',
+                  backgroundColor: Colors.blue.withOpacity(0.5)),
+              BottomNavigationBarItem(
+                  icon: const Icon(Icons.history),
+                  label: 'HISTORY',
+                  backgroundColor: Colors.blue.withOpacity(0.5))
+            ],
+            currentIndex: _selectedIndex,
+            onTap: (value) {
+              setState(() {
+                _selectedIndex = value;
+              });
+            },
+            elevation: 80,
+          ),
+        ));
   }
 }
